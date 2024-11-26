@@ -24,12 +24,20 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 20
+        return plants.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell{
         let cell = tableView.dequeueReusableCell(withIdentifier: "ReusableCell", for: indexPath)
-        cell.textLabel?.text = "I am one cell!"
+        
+        let plant = plants[indexPath.row]
+        cell.textLabel?.text = plant.plantName
+        cell.detailTextLabel?.text = plant.plantLatinName
+        guard let imageName = plant.imageName else{
+            cell.imageView?.image = UIImage(named: "placeholder_image")
+            return cell
+        }
+        cell.imageView?.image = UIImage(named: imageName)
         return cell
     }
     
@@ -39,12 +47,14 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     }
     
     
-    override func prepare (for segue: UIStoryboardSegue, sender: Any?){
-        if segue.identifier == "toPlantDetail"{
-            if let indexPath = tableView.indexPathForSelectedRow {
-                let destinationVC = segue.destination as? PlantDetailViewController
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "toPlantDetail",
+           let destinationVC = segue.destination as? PlantDetailViewController,
+           let indexPath = tableView.indexPathForSelectedRow {
             
-            }
+            // Pass the selected plant name to the detail view controller
+            let selectedPlant = plants[indexPath.row]
+            destinationVC.selectedPlant = selectedPlant.plantName
         }
     }
 

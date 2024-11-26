@@ -123,6 +123,9 @@
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </view>
                     <navigationItem key="navigationItem" id="QV2-Ls-Ir2"/>
+                    <connections>
+                        <outlet property="plantCommonName" destination="rKp-XM-VKY" id="4Aa-dq-9T8"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="etj-zf-0qL" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
