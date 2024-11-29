@@ -52,9 +52,11 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
            let destinationVC = segue.destination as? PlantDetailViewController,
            let indexPath = tableView.indexPathForSelectedRow {
             
-            // Pass the selected plant name to the detail view controller
             let selectedPlant = plants[indexPath.row]
-            destinationVC.selectedPlant = selectedPlant.plantName
+            print("Passing plant: \(selectedPlant.plantName)")
+            destinationVC.userSelectedPlant = selectedPlant
+        } else {
+            print("Segue identifier does not match or destinationVC is not PlantDetailViewController")
         }
     }
 
