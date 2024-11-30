@@ -16,7 +16,6 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         
         tableView.dataSource = self
         tableView.delegate = self
-        // Do any additional setup after loading the view.
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {

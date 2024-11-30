@@ -38,14 +38,6 @@ class PlantDetailViewController: UIViewController {
             stackView.addArrangedSubview(plantLatinNameLabel)
             stackView.addArrangedSubview(plantDescriptionLabel)
             
-            if plant.isInvasive && !plant.isNative{
-                let invasiveLabel = UILabel()
-                invasiveLabel.text = "\(plant.plantName) is invasive to the Eastern Temperate Forest region of the United States."
-                invasiveLabel.numberOfLines = 0
-                invasiveLabel.lineBreakMode = .byWordWrapping
-                stackView.addArrangedSubview(invasiveLabel)
-            }
-            
             if plant.isToxicToEat{
                 let toxicToEatLabel = UILabel()
                 toxicToEatLabel.text = "⚠️ \(plant.plantName) is toxic if ingested."
@@ -60,6 +52,14 @@ class PlantDetailViewController: UIViewController {
                 toxicToTouchLabel.numberOfLines = 0
                 toxicToTouchLabel.lineBreakMode = .byWordWrapping
                 stackView.addArrangedSubview(toxicToTouchLabel)
+            }
+            
+            if plant.isInvasive && !plant.isNative{
+                let invasiveLabel = UILabel()
+                invasiveLabel.text = "\(plant.plantName) is invasive to the Eastern Temperate Forest region of the United States."
+                invasiveLabel.numberOfLines = 0
+                invasiveLabel.lineBreakMode = .byWordWrapping
+                stackView.addArrangedSubview(invasiveLabel)
             }
             
             if plant.isNative && !plant.isInvasive{
@@ -112,5 +112,15 @@ class PlantDetailViewController: UIViewController {
         
 
         }
+        
     }
+
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "toWikipediaArticle",
+           let destinationVC = segue.destination as? WikipediaViewController {
+            destinationVC.selectedPlant = userSelectedPlant?.wikipediaArticleName
+        }
+    }
+    
+
 }

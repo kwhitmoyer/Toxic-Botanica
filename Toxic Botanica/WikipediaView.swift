@@ -1,5 +1,5 @@
 //
-//  WikipediaViewController.swift
+//  WikipediaView.swift
 //  Toxic Botanica
 //
 //  Created by Katherine Whitmoyer on 11/23/24.
@@ -16,8 +16,10 @@ struct WikipediaView: View {
         case loading, loaded, failed
     }
     
+    var selectedPlant: String
+    
     func fetchExtracts() async {
-        let urlString = "https://en.wikipedia.org/w/api.php?format=json&action=query&prop=extracts&exlimit=max&explaintext&titles=heracleum_mantegazzianum"
+        let urlString = "https://en.wikipedia.org/w/api.php?format=json&action=query&prop=extracts&exlimit=max&explaintext&titles=\(selectedPlant)"
         
         guard let url = URL(string: urlString) else {
             print("Bad URL: \(urlString)")
@@ -84,6 +86,6 @@ struct WikipediaView: View {
 
 struct WikipediaView_Previews: PreviewProvider {
     static var previews: some View {
-        WikipediaView()
+        WikipediaView(selectedPlant: "Heracleum_mantegazzianum")
     }
 }

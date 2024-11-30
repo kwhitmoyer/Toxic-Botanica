@@ -3,53 +3,36 @@
 //  Toxic Botanica
 //
 //  Created by Katherine Whitmoyer on 11/26/24.
-//
+//  Note: Heavily relies on the code from this tutorial
+//  https://developer.apple.com/documentation/uikit/views_and_controls/using_swiftui_with_uikit
 
 import UIKit
+import SwiftUI
 
-enum LoadingState {
-    case loading, loaded, failed
-}
-
-class WikipediaViewController : UIViewController{
-    private var loadingState = LoadingState.loading
-    private var pages = [Page]()
-    
+class WikipediaViewController: UIViewController {
+    var selectedPlant: String?
     override func viewDidLoad() {
         super.viewDidLoad()
         
-    }
-    
-    func fetchExtracts() async {
-        let urlString = "https://en.wikipedia.org/w/api.php?format=json&action=query&prop=extracts&exlimit=max&explaintext&titles=heracleum_mantegazzianum"
-        
-        guard let url = URL(string: urlString) else {
-            print("Bad URL: \(urlString)")
-            loadingState = .failed
+        guard let plantName = selectedPlant else {
+            print("Error: No plant name provided")
             return
         }
-        
-        do {
-            let (data, _) = try await URLSession.shared.data(from: url)
-            let items = try JSONDecoder().decode(Result.self, from: data)
-            pages = items.query.pages.values.sorted { $0.title < $1.title }
-            loadingState = .loaded
-        } catch {
-            loadingState = .failed
-        }
+
+        let swiftUIView = WikipediaView(selectedPlant: selectedPlant ?? "nil")
+
+        let hostingController = UIHostingController(rootView: swiftUIView)
+
+        addChild(hostingController)
+        hostingController.view.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(hostingController.view)
+        hostingController.didMove(toParent: self)
+
+        NSLayoutConstraint.activate([
+            hostingController.view.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            hostingController.view.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            hostingController.view.topAnchor.constraint(equalTo: view.topAnchor),
+            hostingController.view.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+        ])
     }
-    
-    struct Result: Codable {
-        let query: Query
-    }
-    
-    struct Query: Codable {
-        let pages: [Int: Page]
-    }
-    
-    struct Page: Codable {
-        let pageid: Int
-        let title: String
-        let extract: String?
-    }
-} 
+}
