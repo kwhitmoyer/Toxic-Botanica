@@ -82,10 +82,45 @@ let starryStonewart = Plant(
     isHarmfulToNativeSpecies: true, //harms ecological system
     isInfestingWaters: true,
     isPhototoxic: false,
-    imageName: "starry_stonewart_patch"
+    imageName: "starry_stonewort_patch"
  )
 
-let plants = [giantHogweed, poisonHemlock, garlicMustard, starryStonewart]
+let creepingButtercup = Plant(
+    plantName: "Creeping Buttercup",
+    plantLatinName: "Ranunculus Repens",
+    wikipediaArticleName: "ranunculus_repens",
+    description: "A creeping weed with a yellow flower. Chokes land used for agricultural and resists removal via complex root system.",
+    isInvasive: true,
+    isNative: false,
+    isNoxious: false,
+    isIllegal: false,
+    isToxicToEat: true,
+    isToxicToTouch: true,
+    isDestructiveToAgriculture: true,
+    isHarmfulToNativeSpecies: true,
+    isInfestingWaters: false,
+    isPhototoxic: false,
+    imageName: "creeping_buttercup")
+
+let jackInThePulpit = Plant(
+    plantName: "Jack-in-the-pulpit",
+    plantLatinName: "Arisaema triphyllum",
+    wikipediaArticleName: "arisaema_triphyllum",
+    description: "Jack-in-the-pulpit is a native wildflower that grows in waterlogged areas. While native and not harmful to other flora and fauna, it is toxic when eaten.",
+    isInvasive: false,
+    isNative: true,
+    isNoxious: false,
+    isIllegal: false,
+    isToxicToEat: true,
+    isToxicToTouch: false,
+    isDestructiveToAgriculture: false,
+    isHarmfulToNativeSpecies: false,
+    isInfestingWaters: false,
+    isPhototoxic: false,
+    imageName: "jack_in_the_pulpit"
+)
+
+let plants = [giantHogweed, poisonHemlock, garlicMustard, starryStonewart, creepingButtercup, jackInThePulpit]
 
 
 
