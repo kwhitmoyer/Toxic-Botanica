@@ -7,11 +7,14 @@
 
 import UIKit
 
-class ViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UICollectionViewDataSource, UICollectionViewDelegate {
+class ViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UICollectionViewDataSource, UICollectionViewDelegate, UISearchBarDelegate {
     
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var plantSearchBar: UISearchBar!
     @IBOutlet weak var plantTagCategories: UICollectionView!
+    
+    var searchedPlants: [Plant] = []
+    var userIsSearching = false
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -21,29 +24,63 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         
         plantTagCategories.dataSource = self
         plantTagCategories.delegate = self
+        
+        plantSearchBar.delegate = self
     }
+    
+    
+    func plantNameMatch(_ text: String, query: String) -> Bool {
+        let matchText = text.range(of: query, options: .caseInsensitive) != nil
+        return matchText
+    }
+
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        if searchText.isEmpty {
+            userIsSearching = false
+            searchedPlants.removeAll()
+        } else {
+            userIsSearching = true
+            searchedPlants = plants.filter { plant in
+                plantNameMatch(plant.plantName, query: searchText) ||
+                plantNameMatch(plant.plantLatinName, query: searchText)
+            }
+        }
+        tableView.reloadData()
+    }
+
     
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
     
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return plants.count
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell{
-        let cell = tableView.dequeueReusableCell(withIdentifier: "ReusableCell", for: indexPath)
-        
-        let plant = plants[indexPath.row]
-        cell.textLabel?.text = plant.plantName
-        cell.detailTextLabel?.text = plant.plantLatinName
-        guard let imageName = plant.imageName else{
-            cell.imageView?.image = UIImage(named: "placeholder_image")
-            return cell
-        }
-        cell.imageView?.image = UIImage(named: imageName)
-        return cell
-    }
+     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+         if userIsSearching{
+             return searchedPlants.count
+         } else{
+             return plants.count
+         }
+     }
+
+     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+         let cell = tableView.dequeueReusableCell(withIdentifier: "ReusableCell", for: indexPath)
+         
+         let plant: Plant
+         if userIsSearching {
+             plant = searchedPlants[indexPath.row]
+         } else {
+             plant = plants[indexPath.row]
+         }
+
+         cell.textLabel?.text = plant.plantName
+         cell.detailTextLabel?.text = plant.plantLatinName
+         if let imageName = plant.imageName {
+             cell.imageView?.image = UIImage(named: imageName)
+         } else {
+             cell.imageView?.image = UIImage(named: "placeholder_image")
+         }
+
+         return cell
+     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let cell = tableView.cellForRow(at: indexPath)
@@ -86,9 +123,6 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         cell?.contentView.layer.masksToBounds = true
         cell?.contentView.backgroundColor = .systemGray4
 
-        //collectionView.dequeueReusableCell(withReuseIdentifier: "PlantCategoryCell", for: //indexPath) as! PlantCell
-        //let tag = plantTags[indexPath.item]
-        //cell.configure(with: tag)
         return cell ?? UICollectionViewCell()
     }
     
@@ -101,7 +135,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
         let cell = collectionView.cellForItem(at: indexPath)
 
-        cell?.contentView.backgroundColor = .systemGray5
+        cell?.contentView.backgroundColor = .systemGray4
     }
     
     
