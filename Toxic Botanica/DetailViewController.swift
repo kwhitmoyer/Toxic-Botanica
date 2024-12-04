@@ -13,6 +13,7 @@ class PlantDetailViewController: UIViewController {
     
     @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var stackView: UIStackView!
+    //set the height of scroll view - pin to bottom of the 
     
     override func viewDidLoad() {
         super.viewDidLoad()

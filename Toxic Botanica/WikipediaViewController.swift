@@ -13,11 +13,6 @@ class WikipediaViewController: UIViewController {
     var selectedPlant: String?
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        guard let plantName = selectedPlant else {
-            print("Error: No plant name provided")
-            return
-        }
 
         let swiftUIView = WikipediaView(selectedPlant: selectedPlant ?? "nil")
 
