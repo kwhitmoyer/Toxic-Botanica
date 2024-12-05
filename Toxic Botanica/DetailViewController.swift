@@ -13,13 +13,18 @@ class PlantDetailViewController: UIViewController {
     
     @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var stackView: UIStackView!
-    //set the height of scroll view - pin to bottom of the 
+    @IBOutlet weak var plantImageView: UIImageView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        print("Received plant: \(userSelectedPlant?.plantName ?? "nil")")
-        
+    
         if let plant = userSelectedPlant {
+            if let imageName = plant.imageName {
+                plantImageView.image = UIImage(named: imageName)
+            } else {
+                plantImageView.image = UIImage(named: "placeholder_image")
+            }
+            
             let plantNameLabel = UILabel()
             plantNameLabel.text = plant.plantName
             plantNameLabel.numberOfLines = 0
@@ -123,5 +128,6 @@ class PlantDetailViewController: UIViewController {
         }
     }
     
+
 
 }

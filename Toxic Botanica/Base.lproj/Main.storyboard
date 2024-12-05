@@ -303,6 +303,7 @@
                         <outlet property="plantTagCategories" destination="ctW-uk-dHw" id="aT1-ip-m2C"/>
                         <outlet property="tableView" destination="6Ue-UN-pin" id="Sdj-qh-7tA"/>
                         <segue destination="glG-qi-5AF" kind="show" identifier="toPlantDetail" id="cXa-Vw-L6V"/>
+                        <segue destination="4Bz-SL-aE7" kind="show" identifier="toWikipedia" id="3yB-sz-OFL"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -318,27 +319,63 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="xSe-EO-qVm">
-                                <rect key="frame" x="20" y="364" width="362" height="352"/>
+                                <rect key="frame" x="20" y="421" width="362" height="1223"/>
                                 <subviews>
-                                    <stackView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" axis="vertical" alignment="center" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="z4G-ZU-MrG">
-                                        <rect key="frame" x="8" y="8" width="346" height="440"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="z4G-ZU-MrG">
+                                        <rect key="frame" x="8" y="8" width="346" height="404"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="404" id="X59-bo-Hy8"/>
+                                        </constraints>
                                     </stackView>
                                 </subviews>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="1223" id="Cgq-TM-jqb"/>
+                                    <constraint firstItem="mdP-82-9ca" firstAttribute="trailing" secondItem="z4G-ZU-MrG" secondAttribute="trailing" constant="8" id="DRA-st-DD2"/>
+                                    <constraint firstItem="z4G-ZU-MrG" firstAttribute="top" secondItem="mdP-82-9ca" secondAttribute="top" constant="8" id="Pcm-kX-3OU"/>
+                                    <constraint firstItem="mdP-82-9ca" firstAttribute="trailing" secondItem="z4G-ZU-MrG" secondAttribute="trailing" constant="8" id="Pfx-Y8-6Su"/>
+                                    <constraint firstItem="z4G-ZU-MrG" firstAttribute="leading" secondItem="mdP-82-9ca" secondAttribute="leading" constant="8" id="pkd-JV-UmK"/>
+                                    <constraint firstItem="z4G-ZU-MrG" firstAttribute="top" secondItem="mdP-82-9ca" secondAttribute="top" constant="8" id="s69-ae-42A"/>
+                                    <constraint firstItem="mdP-82-9ca" firstAttribute="bottom" secondItem="z4G-ZU-MrG" secondAttribute="bottom" constant="811" id="sNc-sh-mvm"/>
+                                    <constraint firstItem="z4G-ZU-MrG" firstAttribute="width" secondItem="xSe-EO-qVm" secondAttribute="width" id="svH-PR-QHz"/>
+                                    <constraint firstItem="z4G-ZU-MrG" firstAttribute="leading" secondItem="mdP-82-9ca" secondAttribute="leading" constant="8" id="vHg-wa-t1n"/>
+                                </constraints>
                                 <viewLayoutGuide key="contentLayoutGuide" id="xmB-pj-t6M"/>
                                 <viewLayoutGuide key="frameLayoutGuide" id="mdP-82-9ca"/>
                             </scrollView>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="yPU-7P-EjO">
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="yPU-7P-EjO">
                                 <rect key="frame" x="32" y="106" width="338" height="250"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="250" id="e0P-2f-CX8"/>
+                                </constraints>
                             </imageView>
+                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="Qg3-xl-AnO">
+                                <rect key="frame" x="269" y="370" width="51" height="31"/>
+                            </switch>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="I've Seen This Plant! " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PTB-73-Ln1">
+                                <rect key="frame" x="74" y="375" width="158" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="Reg-uz-6ii"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="yPU-7P-EjO" firstAttribute="leading" secondItem="Reg-uz-6ii" secondAttribute="leading" constant="32" id="1K3-o9-Xbf"/>
-                            <constraint firstItem="xSe-EO-qVm" firstAttribute="top" secondItem="yPU-7P-EjO" secondAttribute="bottom" constant="8" symbolic="YES" id="Ncv-bk-UUH"/>
-                            <constraint firstItem="Reg-uz-6ii" firstAttribute="trailing" secondItem="yPU-7P-EjO" secondAttribute="trailing" constant="32" id="RFe-aB-YVO"/>
-                            <constraint firstItem="yPU-7P-EjO" firstAttribute="top" secondItem="Reg-uz-6ii" secondAttribute="top" id="bYa-yg-2c8"/>
+                            <constraint firstItem="Reg-uz-6ii" firstAttribute="trailing" secondItem="xSe-EO-qVm" secondAttribute="trailing" constant="20" id="2l4-A9-AYw"/>
+                            <constraint firstItem="Reg-uz-6ii" firstAttribute="trailing" secondItem="yPU-7P-EjO" secondAttribute="trailing" constant="32" id="BR6-sN-O1u"/>
+                            <constraint firstItem="yPU-7P-EjO" firstAttribute="leading" secondItem="Reg-uz-6ii" secondAttribute="leading" constant="32" id="Bqa-w8-bv4"/>
+                            <constraint firstItem="PTB-73-Ln1" firstAttribute="top" secondItem="yPU-7P-EjO" secondAttribute="bottom" constant="19" id="GCJ-iH-gFz"/>
+                            <constraint firstItem="PTB-73-Ln1" firstAttribute="leading" secondItem="Reg-uz-6ii" secondAttribute="leading" constant="74" id="LYq-xN-cAH"/>
+                            <constraint firstItem="xSe-EO-qVm" firstAttribute="leading" secondItem="Reg-uz-6ii" secondAttribute="leading" constant="20" id="Lz5-4C-8hA"/>
+                            <constraint firstItem="xSe-EO-qVm" firstAttribute="top" secondItem="Qg3-xl-AnO" secondAttribute="bottom" constant="20" id="O9c-aG-rXe"/>
+                            <constraint firstItem="yPU-7P-EjO" firstAttribute="top" secondItem="Reg-uz-6ii" secondAttribute="top" id="Qev-Pm-EaA"/>
+                            <constraint firstItem="Qg3-xl-AnO" firstAttribute="leading" secondItem="PTB-73-Ln1" secondAttribute="trailing" constant="37" id="WI1-qg-WRs"/>
+                            <constraint firstItem="xSe-EO-qVm" firstAttribute="top" secondItem="Qg3-xl-AnO" secondAttribute="bottom" constant="20" id="Xbq-Pc-cPC"/>
+                            <constraint firstItem="Reg-uz-6ii" firstAttribute="trailing" secondItem="Qg3-xl-AnO" secondAttribute="trailing" constant="84" id="c5W-aJ-K6E"/>
+                            <constraint firstAttribute="bottom" secondItem="xSe-EO-qVm" secondAttribute="bottom" constant="-770" id="dih-GF-Q3P"/>
+                            <constraint firstItem="xSe-EO-qVm" firstAttribute="top" secondItem="PTB-73-Ln1" secondAttribute="bottom" constant="25" id="uWW-M1-U4f"/>
+                            <constraint firstItem="Qg3-xl-AnO" firstAttribute="top" secondItem="yPU-7P-EjO" secondAttribute="bottom" constant="14" id="zeg-YF-93A"/>
+                            <constraint firstItem="Qg3-xl-AnO" firstAttribute="leading" secondItem="PTB-73-Ln1" secondAttribute="trailing" constant="37" id="zgM-5n-MwO"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="QV2-Ls-Ir2">
@@ -349,6 +386,7 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="plantImageView" destination="yPU-7P-EjO" id="oGO-xm-xWW"/>
                         <outlet property="scrollView" destination="xSe-EO-qVm" id="L5B-qN-u6C"/>
                         <outlet property="stackView" destination="z4G-ZU-MrG" id="Lcv-Xk-Ydr"/>
                     </connections>
@@ -392,6 +430,9 @@
             <point key="canvasLocation" x="-89.312977099236633" y="3.5211267605633805"/>
         </scene>
     </scenes>
+    <inferredMetricsTieBreakers>
+        <segue reference="lwr-wS-ZV3"/>
+    </inferredMetricsTieBreakers>
     <resources>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

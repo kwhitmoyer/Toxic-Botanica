@@ -15,7 +15,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     
     var searchedPlants: [Plant] = []
     var userIsSearching = false
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -26,14 +26,33 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         plantTagCategories.delegate = self
         
         plantSearchBar.delegate = self
+        
+        let touchTwiceWikipedia = UITapGestureRecognizer(target: self, action: #selector(touchTwiceWikipedia(_:)))
+        touchTwiceWikipedia.numberOfTouchesRequired = 2
+        touchTwiceWikipedia.numberOfTapsRequired = 1
+        tableView.addGestureRecognizer(touchTwiceWikipedia)
     }
     
+    @objc func touchTwiceWikipedia(_ gestureRecognizer: UITapGestureRecognizer){
+        let touchLocation = gestureRecognizer.location(in: tableView)
+        
+        if let indexPath = tableView.indexPathForRow(at: touchLocation){
+            let userSelectedPlant: Plant
+            if userIsSearching {
+                userSelectedPlant = searchedPlants[indexPath.row]
+            } else {
+                userSelectedPlant = plants[indexPath.row]
+            }
+            
+            performSegue(withIdentifier: "toWikipedia", sender: userSelectedPlant)
+        }
+    }
     
     func plantNameMatch(_ text: String, query: String) -> Bool {
         let matchText = text.range(of: query, options: .caseInsensitive) != nil
         return matchText
     }
-
+    
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         if searchText.isEmpty {
             userIsSearching = false
@@ -45,42 +64,43 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
                 plantNameMatch(plant.plantLatinName, query: searchText)
             }
         }
+        
         tableView.reloadData()
     }
-
+    
     
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
     
-     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-         if userIsSearching{
-             return searchedPlants.count
-         } else{
-             return plants.count
-         }
-     }
-
-     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-         let cell = tableView.dequeueReusableCell(withIdentifier: "ReusableCell", for: indexPath)
-         
-         let plant: Plant
-         if userIsSearching {
-             plant = searchedPlants[indexPath.row]
-         } else {
-             plant = plants[indexPath.row]
-         }
-
-         cell.textLabel?.text = plant.plantName
-         cell.detailTextLabel?.text = plant.plantLatinName
-         if let imageName = plant.imageName {
-             cell.imageView?.image = UIImage(named: imageName)
-         } else {
-             cell.imageView?.image = UIImage(named: "placeholder_image")
-         }
-
-         return cell
-     }
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if userIsSearching{
+            return searchedPlants.count
+        } else{
+            return plants.count
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "ReusableCell", for: indexPath)
+        
+        let plant: Plant
+        if userIsSearching {
+            plant = searchedPlants[indexPath.row]
+        } else {
+            plant = plants[indexPath.row]
+        }
+        
+        cell.textLabel?.text = plant.plantName
+        cell.detailTextLabel?.text = plant.plantLatinName
+        if let imageName = plant.imageName {
+            cell.imageView?.image = UIImage(named: imageName)
+        } else {
+            cell.imageView?.image = UIImage(named: "placeholder_image")
+        }
+        
+        return cell
+    }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let cell = tableView.cellForRow(at: indexPath)
@@ -90,7 +110,6 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return 10
     }
-    //did selection use index path
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         var cell : UICollectionViewCell? = nil
@@ -122,19 +141,95 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         cell?.contentView.layer.cornerRadius = 8
         cell?.contentView.layer.masksToBounds = true
         cell?.contentView.backgroundColor = .systemGray4
-
+        
         return cell ?? UICollectionViewCell()
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let cell = collectionView.cellForItem(at: indexPath)
-
-        cell?.contentView.backgroundColor = .systemBlue
+        let selectedFilter: String
+        switch indexPath.item {
+        case 0:
+            selectedFilter = "invasive"
+        case 1:
+            selectedFilter = "native"
+        case 2:
+            selectedFilter = "noxious"
+        case 3:
+            selectedFilter = "illegal"
+        case 4:
+            selectedFilter = "toxic to eat"
+        case 5:
+            selectedFilter = "toxic to touch"
+        case 6:
+            selectedFilter = "danger to agriculture"
+        case 7:
+            selectedFilter = "danger to native species"
+        case 8:
+            selectedFilter = "infests waters"
+        case 9:
+            selectedFilter = "phototoxic"
+        default: return
+        }
+        
+        searchedPlants.removeAll()
+        
+        for plant in plants {
+            switch selectedFilter {
+            case "invasive":
+                if plant.isInvasive{
+                    searchedPlants.append(plant)
+                }
+            case "native":
+                if plant.isNative{
+                    searchedPlants.append(plant)
+                }
+            case "noxious":
+                if plant.isNoxious{
+                    searchedPlants.append(plant)
+                }
+            case "illegal":
+                if plant.isIllegal{
+                    searchedPlants.append(plant)
+                }
+            case "toxic to eat":
+                if plant.isToxicToEat{
+                    searchedPlants.append(plant)
+                }
+            case "toxic to touch":
+                if plant.isToxicToTouch{
+                    searchedPlants.append(plant)
+                }
+            case "danger to agriculture":
+                if plant.isDestructiveToAgriculture{
+                    searchedPlants.append(plant)
+                }
+            case "danger to native species":
+                if plant.isHarmfulToNativeSpecies{
+                    searchedPlants.append(plant)
+                }
+            case "infests waters":
+                if plant.isInfestingWaters{
+                    searchedPlants.append(plant)
+                }
+            case "phototoxic":
+                if plant.isPhototoxic{
+                    searchedPlants.append(plant)
+                }
+            default:
+                break
+            }
+        }
+        
+        userIsSearching = true
+        
+        tableView.reloadData()
+        
     }
-
+    
+    
     func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
         let cell = collectionView.cellForItem(at: indexPath)
-
+        
         cell?.contentView.backgroundColor = .systemGray4
     }
     
@@ -144,12 +239,27 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
            let destinationVC = segue.destination as? PlantDetailViewController,
            let indexPath = tableView.indexPathForSelectedRow {
             
-            let selectedPlant = plants[indexPath.row]
+            let selectedPlant: Plant
+            if userIsSearching {
+                selectedPlant = searchedPlants[indexPath.row]
+            } else {
+                selectedPlant = plants[indexPath.row]
+            }
+            
             print("Passing plant: \(selectedPlant.plantName)")
             destinationVC.userSelectedPlant = selectedPlant
         }
+        
+        else if segue.identifier == "toWikipedia",
+           let destinationVC = segue.destination as? WikipediaViewController,
+           let selectedPlant = sender as? Plant {
+            
+            destinationVC.selectedPlant = selectedPlant.wikipediaArticleName
+        }
+        
+        
+        
     }
-
+    
+    
 }
-
-
