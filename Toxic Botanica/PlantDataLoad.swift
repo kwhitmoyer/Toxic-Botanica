@@ -120,7 +120,44 @@ let jackInThePulpit = Plant(
     imageName: "jack_in_the_pulpit"
 )
 
-let plants = [giantHogweed, poisonHemlock, garlicMustard, starryStonewart, creepingButtercup, jackInThePulpit]
+let falseHellebore = Plant(
+    plantName: "False Hellebore",
+    plantLatinName: "Veratrum viride",
+    wikipediaArticleName: "veratrum_viride",
+    description: "An extremely toxic, leafy green flowering plant that produces clusters of small green fruit. Consuming the plant results in potentially fatal cardiac rhythm degradation. It is a known pest for livestock farmers.",
+    isInvasive: false,
+    isNative: true,
+    isNoxious: false,
+    isIllegal: false,
+    isToxicToEat: true,
+    isToxicToTouch: true,
+    isDestructiveToAgriculture: true,
+    isHarmfulToNativeSpecies: false,
+    isInfestingWaters: false,
+    isPhototoxic: false,
+    imageName: "false_hellbore"
+    )
+
+let dodders = Plant(
+    plantName: "Dodders",
+    plantLatinName: "Cuscuta",
+    wikipediaArticleName: "Cuscuta",
+    description: "A highly parasitic vine that kills host plants by growing imbedding rootlike strands into their host tissue. It is highly destructive to both native plants and agriculture.",
+    isInvasive: true,
+    isNative: false,
+    isNoxious: true,
+    isIllegal: true,
+    isToxicToEat: false,
+    isToxicToTouch: false,
+    isDestructiveToAgriculture: true,
+    isHarmfulToNativeSpecies: true,
+    isInfestingWaters: false,
+    isPhototoxic: false,
+    imageName: "dodder"
+)
+    
+
+let plants = [giantHogweed, poisonHemlock, garlicMustard, starryStonewart, creepingButtercup, jackInThePulpit, falseHellebore, dodders]
 
 
 

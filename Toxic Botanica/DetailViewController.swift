@@ -17,6 +17,8 @@ class PlantDetailViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        scrollView.contentSize
     
         if let plant = userSelectedPlant {
             if let imageName = plant.imageName {
@@ -110,11 +112,14 @@ class PlantDetailViewController: UIViewController {
             
             if plant.isInfestingWaters{
                 let waterwayHarmLabel = UILabel()
-                waterwayHarmLabel.text = "\(plant.plantName) is harmful to agriculture."
+                waterwayHarmLabel.text = "\(plant.plantName) is harmful to waterways."
                 waterwayHarmLabel.numberOfLines = 0
                 waterwayHarmLabel.lineBreakMode = .byWordWrapping
                 stackView.addArrangedSubview(waterwayHarmLabel)
             }
+            
+            //get last stack height
+            //use it to set content views
         
 
         }

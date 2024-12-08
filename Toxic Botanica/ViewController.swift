@@ -93,6 +93,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         
         cell.textLabel?.text = plant.plantName
         cell.detailTextLabel?.text = plant.plantLatinName
+    
         if let imageName = plant.imageName {
             cell.imageView?.image = UIImage(named: imageName)
         } else {
