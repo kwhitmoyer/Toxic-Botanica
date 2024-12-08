@@ -15,6 +15,9 @@ class PlantDetailViewController: UIViewController {
     @IBOutlet weak var stackView: UIStackView!
     @IBOutlet weak var plantImageView: UIImageView!
     
+    @IBOutlet weak var plantSeenLabel: UILabel!
+    @IBOutlet weak var plantSeenSlider: UISwitch!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -117,10 +120,23 @@ class PlantDetailViewController: UIViewController {
                 waterwayHarmLabel.lineBreakMode = .byWordWrapping
                 stackView.addArrangedSubview(waterwayHarmLabel)
             }
-            
-            //get last stack height
-            //use it to set content views
-        
+
+            scrollView.translatesAutoresizingMaskIntoConstraints = false
+            NSLayoutConstraint.activate([
+                scrollView.topAnchor.constraint(equalTo: plantSeenSlider.bottomAnchor, constant: 8),
+                scrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+                scrollView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+                scrollView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+            ])
+
+            stackView.translatesAutoresizingMaskIntoConstraints = false
+            NSLayoutConstraint.activate([
+                stackView.leadingAnchor.constraint(equalTo: scrollView.contentLayoutGuide.leadingAnchor),
+                stackView.trailingAnchor.constraint(equalTo: scrollView.contentLayoutGuide.trailingAnchor),
+                stackView.topAnchor.constraint(equalTo: scrollView.contentLayoutGuide.topAnchor),
+                stackView.bottomAnchor.constraint(equalTo: scrollView.contentLayoutGuide.bottomAnchor),
+                stackView.widthAnchor.constraint(equalTo: scrollView.frameLayoutGuide.widthAnchor)
+            ])
 
         }
         

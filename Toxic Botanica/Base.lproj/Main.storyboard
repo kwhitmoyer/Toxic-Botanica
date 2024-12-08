@@ -318,18 +318,15 @@
                         <rect key="frame" x="0.0" y="0.0" width="402" height="874"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="xSe-EO-qVm">
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="xSe-EO-qVm">
                                 <rect key="frame" x="20" y="421" width="362" height="412"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
-                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="z4G-ZU-MrG">
+                                    <stackView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" axis="vertical" alignment="center" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="z4G-ZU-MrG">
                                         <rect key="frame" x="8" y="8" width="346" height="404"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     </stackView>
                                 </subviews>
-                                <constraints>
-                                    <constraint firstItem="z4G-ZU-MrG" firstAttribute="leading" secondItem="mdP-82-9ca" secondAttribute="leading" constant="8" id="Sdd-GQ-o7R"/>
-                                    <constraint firstItem="z4G-ZU-MrG" firstAttribute="bottom" secondItem="mdP-82-9ca" secondAttribute="bottom" id="e4z-nc-f6F"/>
-                                    <constraint firstItem="mdP-82-9ca" firstAttribute="trailing" secondItem="z4G-ZU-MrG" secondAttribute="trailing" constant="8" id="pgp-tj-EAN"/>
-                                </constraints>
                                 <viewLayoutGuide key="contentLayoutGuide" id="xmB-pj-t6M"/>
                                 <viewLayoutGuide key="frameLayoutGuide" id="mdP-82-9ca"/>
                             </scrollView>
@@ -352,13 +349,8 @@
                         <viewLayoutGuide key="safeArea" id="Reg-uz-6ii"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="Reg-uz-6ii" firstAttribute="bottom" secondItem="z4G-ZU-MrG" secondAttribute="bottom" constant="7" id="7yw-Wg-LDc"/>
                             <constraint firstItem="PTB-73-Ln1" firstAttribute="top" secondItem="Qg3-xl-AnO" secondAttribute="top" id="9Ic-NI-kdv"/>
-                            <constraint firstItem="z4G-ZU-MrG" firstAttribute="top" secondItem="Qg3-xl-AnO" secondAttribute="bottom" constant="28" id="BnM-Vj-aUz"/>
-                            <constraint firstItem="Reg-uz-6ii" firstAttribute="trailing" secondItem="xSe-EO-qVm" secondAttribute="trailing" constant="20" id="S7J-OK-4xZ"/>
                             <constraint firstItem="PTB-73-Ln1" firstAttribute="centerY" secondItem="Qg3-xl-AnO" secondAttribute="centerY" id="U88-YM-R23"/>
-                            <constraint firstItem="xSe-EO-qVm" firstAttribute="top" secondItem="Qg3-xl-AnO" secondAttribute="bottom" constant="20" id="Wgs-NX-hrc"/>
-                            <constraint firstItem="xSe-EO-qVm" firstAttribute="leading" secondItem="Reg-uz-6ii" secondAttribute="leading" constant="20" id="YVK-09-Vt6"/>
                             <constraint firstItem="yPU-7P-EjO" firstAttribute="top" secondItem="Reg-uz-6ii" secondAttribute="top" id="aa0-2J-TjB"/>
                             <constraint firstItem="Reg-uz-6ii" firstAttribute="trailing" secondItem="yPU-7P-EjO" secondAttribute="trailing" constant="32" id="aeE-qM-3pR"/>
                             <constraint firstItem="PTB-73-Ln1" firstAttribute="leading" secondItem="Reg-uz-6ii" secondAttribute="leading" constant="74" id="akS-QB-lsL"/>
@@ -366,7 +358,6 @@
                             <constraint firstItem="Qg3-xl-AnO" firstAttribute="top" secondItem="yPU-7P-EjO" secondAttribute="bottom" constant="14" id="jko-Nd-EUb"/>
                             <constraint firstItem="Qg3-xl-AnO" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="PTB-73-Ln1" secondAttribute="trailing" constant="8" symbolic="YES" id="li8-WE-mac"/>
                             <constraint firstItem="yPU-7P-EjO" firstAttribute="leading" secondItem="Reg-uz-6ii" secondAttribute="leading" constant="32" id="rE0-WO-GSc"/>
-                            <constraint firstItem="Reg-uz-6ii" firstAttribute="bottom" secondItem="xSe-EO-qVm" secondAttribute="bottom" constant="7" id="xBH-8Y-55e"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="QV2-Ls-Ir2">
@@ -378,6 +369,8 @@
                     </navigationItem>
                     <connections>
                         <outlet property="plantImageView" destination="yPU-7P-EjO" id="oGO-xm-xWW"/>
+                        <outlet property="plantSeenLabel" destination="PTB-73-Ln1" id="818-Mw-9tG"/>
+                        <outlet property="plantSeenSlider" destination="Qg3-xl-AnO" id="Mza-bS-Lnq"/>
                         <outlet property="scrollView" destination="xSe-EO-qVm" id="L5B-qN-u6C"/>
                         <outlet property="stackView" destination="z4G-ZU-MrG" id="Lcv-Xk-Ydr"/>
                     </connections>
