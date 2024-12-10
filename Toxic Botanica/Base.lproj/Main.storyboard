@@ -107,14 +107,19 @@
                                             <rect key="frame" x="0.0" y="0.0" width="97" height="40"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Noxious" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ruc-hw-Ylp">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Noxious" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ruc-hw-Ylp">
                                                     <rect key="frame" x="17" y="10" width="62" height="21"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="bottom" secondItem="ruc-hw-Ylp" secondAttribute="bottom" constant="9" id="C78-hJ-avz"/>
+                                                <constraint firstAttribute="trailing" secondItem="ruc-hw-Ylp" secondAttribute="trailing" constant="18" id="c21-Bg-KzE"/>
+                                                <constraint firstItem="ruc-hw-Ylp" firstAttribute="leading" secondItem="hJ1-pT-VPy" secondAttribute="leading" constant="17" id="sbH-Od-WuX"/>
+                                                <constraint firstItem="ruc-hw-Ylp" firstAttribute="top" secondItem="hJ1-pT-VPy" secondAttribute="top" constant="10" id="zZc-u2-TL7"/>
+                                            </constraints>
                                         </collectionViewCellContentView>
                                         <size key="customSize" width="97" height="40"/>
                                     </collectionViewCell>
@@ -369,8 +374,8 @@
                     </navigationItem>
                     <connections>
                         <outlet property="plantImageView" destination="yPU-7P-EjO" id="oGO-xm-xWW"/>
+                        <outlet property="plantSeenIndicator" destination="Qg3-xl-AnO" id="Mza-bS-Lnq"/>
                         <outlet property="plantSeenLabel" destination="PTB-73-Ln1" id="818-Mw-9tG"/>
-                        <outlet property="plantSeenSlider" destination="Qg3-xl-AnO" id="Mza-bS-Lnq"/>
                         <outlet property="scrollView" destination="xSe-EO-qVm" id="L5B-qN-u6C"/>
                         <outlet property="stackView" destination="z4G-ZU-MrG" id="Lcv-Xk-Ydr"/>
                     </connections>
@@ -401,7 +406,6 @@
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="vTq-4y-lPi" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="FRe-ac-FRL">
-                        <rect key="frame" x="0.0" y="62" width="402" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
@@ -415,7 +419,7 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="lwr-wS-ZV3"/>
+        <segue reference="3yB-sz-OFL"/>
     </inferredMetricsTieBreakers>
     <resources>
         <systemColor name="systemBackgroundColor">

@@ -70,7 +70,7 @@ let garlicMustard = Plant(
 let starryStonewart = Plant(
     plantName: "Starry Stonewort",
     plantLatinName: "Nitellopsis Obtusa",
-    wikipediaArticleName: "nitelloposis_obtusa",
+    wikipediaArticleName: "Nitellopsis_obtusa",
     description: "A stemmed, seaweed-like algae that forms dense, obstructive mats and is distingushable by its white flower-like bulbil",
     isInvasive: true,
     isNative: false,

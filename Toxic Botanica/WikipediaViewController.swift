@@ -9,6 +9,7 @@
 import UIKit
 import SwiftUI
 
+//Essentially a wrapper class to hold wikipedia view created in Swift UI
 class WikipediaViewController: UIViewController {
     var selectedPlant: String?
     override func viewDidLoad() {

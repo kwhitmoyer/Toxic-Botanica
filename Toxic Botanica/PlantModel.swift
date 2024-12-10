@@ -16,14 +16,14 @@ struct Plant {
     
     let isInvasive: Bool
     let isNative: Bool
-    let isNoxious: Bool
-    let isIllegal: Bool
-    let isToxicToEat: Bool
+    let isNoxious: Bool  //legal classification - has state or fed listed it as a 'dangerous plant'
+    let isIllegal: Bool  
+    let isToxicToEat: Bool    //toxicity is defined as fatal harm upon consumption - false value doesn't mean its edible
     let isToxicToTouch: Bool
     let isDestructiveToAgriculture: Bool
     let isHarmfulToNativeSpecies: Bool
     let isInfestingWaters: Bool
-    let isPhototoxic: Bool
+    let isPhototoxic: Bool   //phototoxic - causes burns to human/livestock
     
     let imageName: String?
     

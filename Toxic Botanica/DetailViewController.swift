@@ -9,19 +9,17 @@ import UIKit
 
 class PlantDetailViewController: UIViewController {
     
-    var userSelectedPlant: Plant? // Passed plant object
+    var userSelectedPlant: Plant?
     
     @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var stackView: UIStackView!
     @IBOutlet weak var plantImageView: UIImageView!
     
     @IBOutlet weak var plantSeenLabel: UILabel!
-    @IBOutlet weak var plantSeenSlider: UISwitch!
+    @IBOutlet weak var plantSeenIndicator: UISwitch!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        scrollView.contentSize
     
         if let plant = userSelectedPlant {
             if let imageName = plant.imageName {
@@ -29,6 +27,17 @@ class PlantDetailViewController: UIViewController {
             } else {
                 plantImageView.image = UIImage(named: "placeholder_image")
             }
+            
+            //add slider to show if plant has been seen 
+            let hasUserSeenPlant = UserDefaults.standard.bool(forKey: plant.plantName)
+            plantSeenIndicator.isOn = hasUserSeenPlant
+            if hasUserSeenPlant{
+                plantSeenLabel.text = "Seen"
+            } else {
+                plantSeenLabel.text = "Not seen"
+            }
+            
+            plantSeenIndicator.addTarget(self, action: #selector(seenStatusChanged), for: .valueChanged)
             
             let plantNameLabel = UILabel()
             plantNameLabel.text = plant.plantName
@@ -123,7 +132,7 @@ class PlantDetailViewController: UIViewController {
 
             scrollView.translatesAutoresizingMaskIntoConstraints = false
             NSLayoutConstraint.activate([
-                scrollView.topAnchor.constraint(equalTo: plantSeenSlider.bottomAnchor, constant: 8),
+                scrollView.topAnchor.constraint(equalTo: plantSeenIndicator.bottomAnchor, constant: 8),
                 scrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
                 scrollView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
                 scrollView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
@@ -142,10 +151,23 @@ class PlantDetailViewController: UIViewController {
         
     }
 
+    //seque to wikipedia
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "toWikipediaArticle",
            let destinationVC = segue.destination as? WikipediaViewController {
             destinationVC.selectedPlant = userSelectedPlant?.wikipediaArticleName
+        }
+    }
+    
+    // Function to handle the switch toggle
+    @objc func seenStatusChanged(_ sender: UISwitch) {
+        if let plant = userSelectedPlant {
+            UserDefaults.standard.set(sender.isOn, forKey: plant.plantName)
+            if sender.isOn {
+                plantSeenLabel.text = "Seen"
+            } else {
+                plantSeenLabel.text = "Not Seen"
+            }
         }
     }
     

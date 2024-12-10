@@ -19,23 +19,31 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        //Table view stores list of plants
         tableView.dataSource = self
         tableView.delegate = self
         
+        //Collection view stores plant catagory buttons
         plantTagCategories.dataSource = self
         plantTagCategories.delegate = self
         
+        //Provides search feature
         plantSearchBar.delegate = self
         
+        //Gesture - a two finger touch to a cell containing a plant in viewController will
+        //   go directly to the wikipedia tab
         let touchTwiceWikipedia = UITapGestureRecognizer(target: self, action: #selector(touchTwiceWikipedia(_:)))
         touchTwiceWikipedia.numberOfTouchesRequired = 2
         touchTwiceWikipedia.numberOfTapsRequired = 1
         tableView.addGestureRecognizer(touchTwiceWikipedia)
     }
     
+    
     @objc func touchTwiceWikipedia(_ gestureRecognizer: UITapGestureRecognizer){
         let touchLocation = gestureRecognizer.location(in: tableView)
         
+        //acccounts for case in which user is searching for a plant and
+        //   therefore has reduced index of table cells due to filtering
         if let indexPath = tableView.indexPathForRow(at: touchLocation){
             let userSelectedPlant: Plant
             if userIsSearching {
@@ -100,6 +108,13 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
             cell.imageView?.image = UIImage(named: "placeholder_image")
         }
         
+        cell.layer.masksToBounds = true
+        cell.selectionStyle = .blue
+        
+        cell.imageView?.layer.cornerRadius = 1
+        cell.imageView?.layer.masksToBounds = true
+        
+        
         return cell
     }
     
@@ -108,10 +123,14 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         performSegue(withIdentifier: "toPlantDetail", sender: indexPath)
     }
     
+    //Collection view containing plant catagory buttons
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        //Number of catagories is known and configured in storyboard
         return 10
     }
     
+    //Customizes cell. Project handles most cell customation through storyboard file, however,
+    //   I am too afraid to remove this potentially redudant code right before the deadline
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         var cell : UICollectionViewCell? = nil
         switch indexPath.item {
@@ -146,7 +165,12 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         return cell ?? UICollectionViewCell()
     }
     
+    //Handles logic for filtering 
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        if let cell = collectionView.cellForItem(at: indexPath) {
+            cell.contentView.backgroundColor = .systemBlue
+        }
+        
         let selectedFilter: String
         switch indexPath.item {
         case 0:
@@ -227,13 +251,17 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         
     }
     
-    
+    //when a catagory button is deselected
     func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
-        let cell = collectionView.cellForItem(at: indexPath)
+        if let cell = collectionView.cellForItem(at: indexPath) {
+            cell.contentView.backgroundColor = .systemGray4
+        }
         
-        cell?.contentView.backgroundColor = .systemGray4
+        userIsSearching = false
+        searchedPlants.removeAll()
+        plantSearchBar.text = ""
+        tableView.reloadData()
     }
-    
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "toPlantDetail",
@@ -251,6 +279,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
             destinationVC.userSelectedPlant = selectedPlant
         }
         
+        //seque triggered by double tap
         else if segue.identifier == "toWikipedia",
            let destinationVC = segue.destination as? WikipediaViewController,
            let selectedPlant = sender as? Plant {

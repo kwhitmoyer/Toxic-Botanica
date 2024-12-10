@@ -84,6 +84,7 @@ struct WikipediaView: View {
     }
 }
 
+//This specifes the preview for testing in canvas
 struct WikipediaView_Previews: PreviewProvider {
     static var previews: some View {
         WikipediaView(selectedPlant: "Heracleum_mantegazzianum")
